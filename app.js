@@ -61,7 +61,6 @@ function buildLinks() {
   const name = $("name").value.trim() || "Your Name";
   const dl = $("dl").value.trim();
   const allDay = $("allDay").checked;
-  const extraNotes = $("extraNotes").value.trim();
   const subject = `${name} - OOO`;
 
   let startdt;
@@ -103,16 +102,9 @@ function buildLinks() {
     bodyDetails = `${name} will be out of office on ${formatDateForBody(date)} from ${formatTimeForBody(startTime)} to ${formatTimeForBody(endTime)}${tz ? ` ${tz}` : ""}.`;
   }
 
-  const body = [bodyDetails, extraNotes]
-    .filter(Boolean)
-    .join("\n\n");
+  const body = "";
 
-  const sharedBody = [
-    `(Invite ${dl} and uncheck "Request Responses". Delete this line before sending.)`,
-    body
-  ]
-    .filter(Boolean)
-    .join("\n\n");
+  const sharedBody = `(Invite ${dl} and uncheck "Request Responses". Delete this before sending.)`
 
   const sharedUrl = buildOutlookUrl({
     subject,
@@ -156,7 +148,6 @@ $("buildLinks").addEventListener("click", buildLinks);
 
 $("resetForm").addEventListener("click", () => {
   $("name").value = "";
-  $("extraNotes").value = "";
   $("results").hidden = true;
   $("allDay").checked = true;
   $("allDayFields").hidden = false;
